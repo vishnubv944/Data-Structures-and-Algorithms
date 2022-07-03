@@ -33,3 +33,22 @@ void removeConsecutiveDuplicates(char *input) {
     }
 
 }
+
+//Second Approach
+
+#include<bits/stdc++.h>
+void removeConsecutiveDuplicates(char *input) {
+	
+    if(strlen(input) == 0){
+        return;
+    }
+    int i = 0;
+    while(input[0] == input[1]){
+        int i = 0;
+        for(i = 1; input[i] != '\0'; i++){
+            input[i-1] = input[i];
+        }
+     input[i-1] = '\0';
+    }
+   return removeConsecutiveDuplicates(input+1);
+}
