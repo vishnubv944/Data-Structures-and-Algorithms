@@ -125,3 +125,53 @@ int calculateMinPatforms(int at[], int dt[], int n) {
     }
     return c;
 }
+// Second Approach
+// The main idea behind this approach is to consider all the events in the sorted order. Once the events are in the sorted order, we find the number of trains at any time by keeping track of the trains that have arrived but not yet departed. The minimum number of platforms required will be the maximum number of trains at any time.
+
+ 
+
+// The steps are as follows:
+
+ 
+
+// Sort the array ‘AT' and ‘DT’.
+ 
+// Use two pointers ‘i’ and ‘j’, both initialized to 0, to traverse the arrays ‘AT’ and ‘DT’ respectively. Also, we use the variable 'MIN_NUM_OF_PLATFORMS' to denote the minimum number of platforms required and the variable 'CUR_NUM_OF_PLATFORMS' to denote the current number of platforms required at any given time.
+ 
+// Run a loop while ‘i’ < ‘N’ and ‘j’ < ‘N’ and compare the elements ‘AT[i]’ and ‘DT[j]’:
+
+
+// If ‘AT[i]’ <= ‘DT[j]’, then one more platform is needed. Thus, 'CUR_NUM_OF_PLATFORMS' = 'CUR_NUM_OF_PLATFORMS' + 1 and ‘i’ = ‘i’ + 1.
+ 
+// Else one less platform is needed. Thus, 'CUR_NUM_OF_PLATFORMS' = 'CUR_NUM_OF_PLATFORMS' -1 and 'j' = 'j' + 1
+ 
+// Update 'MIN_NUM_OF_PLATFORMS' if 'CUR_NUM_OF_PLATFORMS' is greater than 'MIN_NUM_OF_PLATFORMS' i.e. 'MIN_NUM_OF_PLATFORMS' = max('MIN_NUM_OF_PLATFORMS', 'CUR_NUM_OF_PLATFORMS')
+ 
+// Return 'MIN_NUM_OF_PLATFORMS' as the answer.
+
+#include<bits/stdc++.h>
+int calculateMinPatforms(int at[], int dt[], int n) {
+    vector<int> a(n);
+    vector<int> d(n);
+    for(int i = 0; i < n; i++){
+        a[i] = at[i];
+        d[i] = dt[i];
+    }
+    sort(a.begin(), a.end());
+    sort(d.begin(), d.end());
+    int i = 0, j = 0, mp = 0, cp = 0;
+    while((i < n)&&(j < n)){
+        if(a[i] <= d[j]){
+            cp++;
+            i++;
+        }
+        else{
+            cp--;
+            j++;
+        }
+        mp = max(mp, cp);
+    }
+    
+    return mp;
+    
+}
